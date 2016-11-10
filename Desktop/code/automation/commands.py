@@ -1,10 +1,10 @@
 
 
 
-import urllib2 as url
+import urllib2 as u
 def retrieveCommands(PID):
 	
-	response=url.urlopen('https://runescapev5-basedtoaster.c9users.io/auto/commands/'+str(PID))
+	response=u.urlopen('https://runescapev5-basedtoaster.c9users.io/auto/commands/'+str(PID))
 	html=response.read()
 	html=html.split('<div id="body" class="body">')
 	commands= html[1].split('</div>')[0]
@@ -18,4 +18,16 @@ def retrieveCommands(PID):
 	amt=commands[2]
 	price=commands[3]
 	return(bs,itemID,amt,price)
-print retrieveCommands(1)
+#print retrieveCommands(1)
+
+
+def submitTransaction(PID,bs,itemID,amt,price,currentLiquid):
+	url="https://runescapev5-basedtoaster.c9users.io/auto/submit/"
+	url+=str(PID)+"/"
+	url+=str(bs)+"/"
+	url+=str(itemID)+"/"
+	url+=str(amt)+"/"
+	url+=str(price)+"/"
+	url+=str(currentLiquid)
+	u.urlopen(url)
+#submitTransaction(1,True,440,150,350,10000)
